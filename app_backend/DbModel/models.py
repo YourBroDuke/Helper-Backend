@@ -9,7 +9,7 @@ class User(models.Model):
     name = models.CharField(max_length=20)
     hashed_password = models.CharField(max_length=32)
     email_address = models.EmailField(max_length=254, unique=True)
-    phone_number = models.CharField(max_length=11, unique=True, default="")
+    phone_number = models.CharField(max_length=11, default="")
     balance = models.DecimalField(max_digits=5, decimal_places=4, default=0)
 
 

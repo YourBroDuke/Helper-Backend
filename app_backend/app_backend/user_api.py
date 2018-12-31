@@ -18,9 +18,15 @@ def user_sign_up(request):
         crt_user.name = crt_user.name+str(crt_user.id)
         crt_user.save()
 
-        return HttpResponse("Success")
+        user_obj = {'id': crt_user.id, 'name': crt_user.name,
+                    'phone': crt_user.phone_number, 'balance': crt_user.balance}
+
+        return_obj = {'valid': True, 'user': user_obj}
+
+        return HttpResponse(json.dumps(return_obj))
     else:
-        return HttpResponse("Duplicate email")
+        return_obj = {'valid': False}
+        return HttpResponse(json.dumps(return_obj))
 
 
 # url /log_in?email_address=x&password=x
@@ -30,6 +36,14 @@ def user_log_in(request):
 
     exist_user = User.objects.filter(email_address=log_in_email)
     if exist_user.count() == 1 and password == exist_user[0].hashed_password:
-            return HttpResponse("Success")
+
+        crt_user = exist_user[0]
+
+        user_obj = {'id': crt_user.id, 'name': crt_user.name,
+                    'phone': crt_user.phone_number, 'balance': float(crt_user.balance)}
+        return_obj = {'valid': True, 'user': user_obj}
+
+        return HttpResponse(json.dumps(return_obj))
     else:
-        return HttpResponse("Fail")
+        return_obj = {'valid': False}
+        return HttpResponse(json.dumps(return_obj))
