@@ -18,8 +18,8 @@ def user_sign_up(request):
         crt_user.name = crt_user.name+str(crt_user.id)
         crt_user.save()
 
-        user_obj = {'id': crt_user.id, 'name': crt_user.name,
-                    'phone': crt_user.phone_number, 'balance': crt_user.balance}
+        user_obj = {'id': crt_user.id, 'name': crt_user.name, 'email': sign_up_email,
+                    'phone': crt_user.phone_number, 'balance': float(crt_user.balance)}
 
         return_obj = {'valid': True, 'user': user_obj}
 
@@ -39,7 +39,7 @@ def user_log_in(request):
 
         crt_user = exist_user[0]
 
-        user_obj = {'id': crt_user.id, 'name': crt_user.name,
+        user_obj = {'id': crt_user.id, 'name': crt_user.name, 'email': log_in_email,
                     'phone': crt_user.phone_number, 'balance': float(crt_user.balance)}
         return_obj = {'valid': True, 'user': user_obj}
 
