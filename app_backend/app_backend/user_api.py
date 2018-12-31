@@ -29,7 +29,7 @@ def user_log_in(request):
     password = request.GET['password']
 
     exist_user = User.objects.filter(email_address=log_in_email)
-    if exist_user.count() == 1 and password == exist_user.hashed_password:
+    if exist_user.count() == 1 and password == exist_user[0].hashed_password:
             return HttpResponse("Success")
     else:
         return HttpResponse("Fail")
